@@ -1,5 +1,6 @@
 package com.mhealth.admin.controllers;
 
+import com.mhealth.admin.config.Constants;
 import com.mhealth.admin.dto.request.EmailTemplateRequest;
 import com.mhealth.admin.dto.request.EmailTemplateSearchRequest;
 import com.mhealth.admin.dto.response.Response;
@@ -33,7 +34,7 @@ public class EmailTemplateController {
     @PostMapping
     public ResponseEntity<Response> createEmailTemplate(
             @Valid @RequestBody EmailTemplateRequest request,
-            @RequestHeader(name = "X-localization", required = false, defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false, defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.createEmailTemplate(request, locale);
     }
 
@@ -45,7 +46,7 @@ public class EmailTemplateController {
     public ResponseEntity<Response> updateEmailTemplate(
             @PathVariable Integer id,
             @Valid @RequestBody EmailTemplateRequest request,
-            @RequestHeader(name = "X-localization", required = false, defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false, defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.updateEmailTemplate(id, request, locale);
     }
 
@@ -55,7 +56,7 @@ public class EmailTemplateController {
     @PostMapping("/search")
     public ResponseEntity<Response> searchEmailTemplates(
             @Valid @RequestBody EmailTemplateSearchRequest request,
-            @RequestHeader(name = "X-localization", required = false, defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false, defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.searchEmailTemplates(request.getKey(), request.getValue(), locale);
     }
 
@@ -64,7 +65,7 @@ public class EmailTemplateController {
     })
     @GetMapping
     public ResponseEntity<Response> getAllEmailTemplates(
-            @RequestHeader(name = "X-localization", required = false, defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false, defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.getAllEmailTemplates(locale);
     }
 
@@ -75,7 +76,7 @@ public class EmailTemplateController {
     @GetMapping("/{id}")
     public ResponseEntity<Response> getEmailTemplateById(
             @PathVariable Integer id,
-            @RequestHeader(name = "X-localization", required = false, defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false, defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.getEmailTemplateById(id, locale);
     }
 
@@ -86,7 +87,7 @@ public class EmailTemplateController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Response> deleteEmailTemplateById(
             @PathVariable Integer id,
-            @RequestHeader(name = "X-localization", required = false, defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false, defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.deleteEmailTemplateById(id, locale);
     }
 }

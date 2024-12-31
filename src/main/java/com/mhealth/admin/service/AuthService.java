@@ -5,12 +5,20 @@ import com.mhealth.admin.config.Constants;
 import com.mhealth.admin.config.Utility;
 import com.mhealth.admin.dto.Status;
 import com.mhealth.admin.dto.dto.LoginResponseDto;
+import com.mhealth.admin.dto.dto.PermissionDto;
 import com.mhealth.admin.dto.dto.VerifyLoginOtp;
 import com.mhealth.admin.dto.enums.UserType;
 import com.mhealth.admin.dto.enums.YesNo;
 import com.mhealth.admin.dto.request.LoginRequest;
+import com.mhealth.admin.dto.response.PermissionRoleDto;
 import com.mhealth.admin.dto.response.Response;
 import com.mhealth.admin.model.AuthKey;
+import com.mhealth.admin.model.Permission;
+import com.mhealth.admin.model.PermissionRole;
+import com.mhealth.admin.model.Users;
+import com.mhealth.admin.repository.AuthKeyRepository;
+import com.mhealth.admin.repository.PermissionRepository;
+import com.mhealth.admin.repository.PermissionRoleRepository;
 import com.mhealth.admin.model.UserOTP;
 import com.mhealth.admin.model.Users;
 import com.mhealth.admin.repository.AuthKeyRepository;
@@ -45,6 +53,10 @@ public class AuthService {
 
     @Autowired
     private Utility utility;
+    @Autowired
+    private PermissionRepository permissionRepository;
+    @Autowired
+    private PermissionRoleRepository permissionRoleRepository;
 
     @Autowired
     private PublicService publicService;
@@ -91,11 +103,22 @@ public class AuthService {
             String token = authConfig.generateToken(request.getContactNumber(), existingUser.getUserId());
             boolean isInternational = existingUser.getIsInternational().equals(YesNo.Yes);
 
+            PermissionRoleDto permission = null;
+            try {
+                PermissionRole role = permissionRoleRepository.findByUserType(existingUser.getType()).orElse(null);
+                if(role!=null){
+                    permission = getPermissions(role);
+                }
+            }catch (Exception e){
+
+            }
+
             // Populate the DTO
             data = new LoginResponseDto(
                     existingUser.getUserId().toString(),
                     token,
-                    isInternational
+                    isInternational,
+                    permission
             );
 
             message = messageSource.getMessage(Constants.USER_LOGIN_IS_SUCCESS, null, locale);
@@ -214,5 +237,60 @@ public class AuthService {
         }
 
         return false;
+    }
+
+    public PermissionRoleDto getPermissions(PermissionRole role){
+        List<String> rolesStringIds = Arrays.asList(role.getPermissions().split(","));
+        List<Integer> ids = new ArrayList<>();
+        for(String s:rolesStringIds){
+            ids.add(Integer.parseInt(s));
+        }
+        List<Permission> permissionList = new ArrayList<>();
+        if(!ids.isEmpty()){
+            permissionList = permissionRepository.findByIds(ids);
+        }
+
+        List<Permission> level0 = new ArrayList<>();
+        List<Permission> level1 = new ArrayList<>();
+        List<Permission> level2 = new ArrayList<>();
+
+        for(Permission p:permissionList){
+            if(p.getLevel()==0){
+                level0.add(p);
+            }else if(p.getLevel()==1){
+                level1.add(p);
+            } else if (p.getLevel()==2) {
+                level2.add(p);
+            }
+        }
+
+        List<PermissionDto> data = getTreeStructure(level0,level1,level2);
+        return new PermissionRoleDto(data,role);
+    }
+
+    public List<PermissionDto> getTreeStructure(
+            List<Permission> firstLevel,List<Permission>second,List<Permission>third){
+        List<PermissionDto> response = new ArrayList<>();
+        for(Permission p:firstLevel){
+            response.add(new PermissionDto(p));
+        }
+        for(PermissionDto dto :response){
+            for(Permission p:second){
+                if(p.getParent()!= null && p.getParent().getId()==dto.getId()){
+                    dto.getSubPermission().add(new PermissionDto(p));
+                }
+            }
+        }
+        for(PermissionDto external :response){
+            for(PermissionDto internal :external.getSubPermission()){
+                for(Permission p:third){
+                    if(p.getParent()!=null && p.getParent().getId()==internal.getId()){
+                        internal.getSubPermission().add(new PermissionDto(p));
+                    }
+                }
+            }
+        }
+
+        return response;
     }
 }

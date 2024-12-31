@@ -1,5 +1,6 @@
 package com.mhealth.admin.controllers;
 
+import com.mhealth.admin.config.Constants;
 import com.mhealth.admin.dto.dto.VerifyLoginOtp;
 import com.mhealth.admin.dto.request.LoginRequest;
 import com.mhealth.admin.dto.response.Response;
@@ -27,7 +28,8 @@ public class AuthController {
     @PostMapping("/login")
     @Operation(method = "POST",description = "Login api")
     public ResponseEntity<Response> login(@RequestBody @Validated LoginRequest request,
-                                          @RequestHeader(name = "X-localization", required = false,defaultValue = "so") Locale locale) {
+                                          @RequestHeader(name = "X-localization",
+                                                  required = false,defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return authService.login(request,locale);
     }
     /*

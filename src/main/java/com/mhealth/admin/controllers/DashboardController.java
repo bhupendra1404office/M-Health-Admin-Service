@@ -1,5 +1,6 @@
 package com.mhealth.admin.controllers;
 
+import com.mhealth.admin.config.Constants;
 import com.mhealth.admin.service.DashboardService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class DashboardController {
 
     @GetMapping("/details")
     public ResponseEntity<?> getDashboardDetails(@RequestHeader(name = "X-localization",
-            required = false,defaultValue = "so") Locale locale) {
+            required = false,defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return dashboardService.getDashboardDetails(locale);
     }
 }

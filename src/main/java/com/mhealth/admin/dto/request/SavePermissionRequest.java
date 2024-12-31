@@ -1,0 +1,15 @@
+package com.mhealth.admin.dto.request;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class SavePermissionRequest {
+    String roleName;
+    List<Integer> ids;
+}

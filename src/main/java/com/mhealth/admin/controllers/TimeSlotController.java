@@ -1,5 +1,6 @@
 package com.mhealth.admin.controllers;
 
+import com.mhealth.admin.config.Constants;
 import com.mhealth.admin.dto.request.SlotTypeRequest;
 import com.mhealth.admin.dto.response.Response;
 import com.mhealth.admin.service.SlotTypeService;
@@ -30,7 +31,7 @@ public class TimeSlotController {
     @PostMapping
     public ResponseEntity<Response> createSlotType(
             @Valid @RequestBody SlotTypeRequest request,
-            @RequestHeader(name = "X-localization", required = false, defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false, defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.createSlotType(request, locale);
     }
 
@@ -42,7 +43,7 @@ public class TimeSlotController {
     public ResponseEntity<Response> updateSlotType(
             @PathVariable Integer id,
             @Valid @RequestBody SlotTypeRequest request,
-            @RequestHeader(name = "X-localization", required = false, defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false, defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.updateSlotType(id, request, locale);
     }
 
@@ -51,7 +52,7 @@ public class TimeSlotController {
     })
     @GetMapping
     public ResponseEntity<Response> getAllSlotTypes(
-            @RequestHeader(name = "X-localization", required = false, defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false, defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.getAllSlotTypes(locale);
     }
 
@@ -62,7 +63,7 @@ public class TimeSlotController {
     @GetMapping("/{id}")
     public ResponseEntity<Response> getSlotTypeById(
             @PathVariable Integer id,
-            @RequestHeader(name = "X-localization", required = false, defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false, defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.getSlotTypeById(id, locale);
     }
 
@@ -73,7 +74,7 @@ public class TimeSlotController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Response> deleteSlotTypeById(
             @PathVariable Integer id,
-            @RequestHeader(name = "X-localization", required = false, defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false, defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.deleteSlotTypeById(id, locale);
     }
 }
