@@ -130,12 +130,12 @@ public class AuthService {
                     messageSource.getMessage(Constants.BLANK_DATA_GIVEN, null, locale)
             ));
         }
-        Optional<Users> user = usersRepository.findByContactNumberAndType(contactNumber, UserType.Superadmin);
-        if (user.isPresent()) {
-            int otp = publicService.saveNewOtp(user.get());
+        Users user = usersRepository.findByContactNumberAndType(contactNumber, UserType.Superadmin);
+        if (user != null) {
+            int otp = publicService.saveNewOtp(user);
 
             Map<String, Object> temp = new HashMap<>();
-            temp.put("user", user.get());
+            temp.put("user", user);
             temp.put("otp", String.valueOf(otp));
             String message = publicService.sendMessage(temp, Constants.OTP_TO_RESET_PASSWORD, locale);
 
@@ -162,11 +162,11 @@ public class AuthService {
                     messageSource.getMessage(Constants.BLANK_DATA_GIVEN, null, locale)
             ));
         }
-        Optional<Users> user = usersRepository.findByContactNumberAndType(request.getContactNumber(), UserType.Superadmin);
-        if (user.isPresent()) {
-            UserOTP userOTP = userOTPRepository.findFirstByUserIdAndIsFromOrderByIdDesc(user.get().getUserId(), "Forgotpassword");
+        Users user = usersRepository.findByContactNumberAndType(request.getContactNumber(), UserType.Superadmin);
+        if (user != null) {
+            UserOTP userOTP = userOTPRepository.findFirstByUserIdAndIsFromOrderByIdDesc(user.getUserId(), "Forgotpassword");
             if(userOTP != null){
-                return publicService.processOtp(user.get(), userOTP, request, locale);
+                return publicService.processOtp(user, userOTP, request, locale);
             }
             return ResponseEntity.status(HttpStatus.OK).body(new Response(
                     Status.FAILED,

@@ -15,7 +15,7 @@ public class Constants {
     public static final String INVALID_PASSWORD_CODE = "401";
     public static final String CONFLICT_CODE = "409";
 
-    public static final String SUCCESS="Success.";
+    public static final String SUCCESS= "app.success" ;
     public static final String FAIL="FAIL";
     public static final String USER_NOT_FOUND= "user.not.found";
     public static final String INVALID_PASSWORD = "app.invalid.password";
@@ -141,10 +141,14 @@ public class Constants {
     public static final String ORDER_FETCHED_SUCCESS = "app.order.fetch.successfully";
     public static final String OTP_SEND_SUCCESSFULLY = "otp.send.successfully";
     public static final String CONTACT_NUMBER_NOT_EXIST = "contact.number.not.exist";
+    public static final String CONTACT_NUMBER_EXIST = "contact.number.exist";
     public static final String OTP_TO_RESET_PASSWORD = "app.otp.to.reset.password";
     public static final String OTP_NOT_MATCHED = "app.otp.not.matched";
     public static final String OTP_EXPIRES = "app.otp.expires";
     public static final String Password_Reset = "app.password.reset";
+    public static final String TERMS_AND_CONDITION = "app.terms.and.condition";
+    public static final String PATIENT_CREATE_SUCCESSFULLY = "app.patient.create.successfully";
+    public static final String PATIENT_UPDATED_SUCCESSFULLY = "app.patient.updated.successfully";
     public static final String COUNTRY_SOMALIA = "SOMALIA";
     public static final String COUNTRY_KENYA = "KENYA";
 }

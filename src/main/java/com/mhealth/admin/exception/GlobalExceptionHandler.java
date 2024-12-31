@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<?> handleUserNotFoundException(UsernameNotFoundException ex, WebRequest request) {
         Response response = new Response(Status.FAILED, Constants.USER_NOT_FOUND_CODE,Constants.USER_NOT_FOUND, null);
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(InvalidCredentialsException.class)

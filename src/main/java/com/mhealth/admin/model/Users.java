@@ -196,4 +196,8 @@ public class Users {
     @Column(name = "is_international")
     @Enumerated(EnumType.STRING)
     private YesNo isInternational;
+
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
 }

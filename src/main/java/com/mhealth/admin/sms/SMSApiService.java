@@ -29,6 +29,12 @@ public class SMSApiService {
         matchedProcessor.sendSms(msisdn, message);
     }
 
+    //Use this method if the contact number is of international doctor
+    public void sendMessage(String msisdn, String message, SMSAggregator smsAggregator){
+        SendMessages matchedProcessor = getMatchedProcessor(smsAggregator);
+        matchedProcessor.sendSms(msisdn, message);
+    }
+
 
     public SMSAggregator getSMSAggregator(String country) {
         HashMap<String, SMSAggregator> map = new HashMap<>();

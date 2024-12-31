@@ -1,5 +1,7 @@
 package com.mhealth.admin.service;
 
+import com.mhealth.admin.dto.enums.YesNo;
+import com.mhealth.admin.sms.SMSAggregator;
 import com.mhealth.admin.sms.SMSApiService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -78,7 +80,10 @@ public class PublicService {
             message = message.replace("{{otp}}", (String)temp.get("otp"));
 
             if(smsSent){
-                smsApiService.sendMessage("+" + users.getCountryCode() + users.getContactNumber(), message, mHealthCountry);
+                if (users.getIsInternational().equals(YesNo.Yes))
+                    smsApiService.sendMessage("+" + users.getCountryCode() + users.getContactNumber(), message, SMSAggregator.TWILIO);
+                else
+                    smsApiService.sendMessage("+" + users.getCountryCode() + users.getContactNumber(), message, mHealthCountry);
             }
         }
         return message;
@@ -111,4 +116,5 @@ public class PublicService {
                 message
         ));
     }
+
 }
