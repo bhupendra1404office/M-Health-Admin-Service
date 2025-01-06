@@ -61,7 +61,7 @@ public class Constants {
     public static final String APP_BANNER_FETCHED_SUCCESSFULLY = "app.banner.fetched.successfully";
     public static final String APP_BANNER_NOT_FOUND = "app.banner.not.found";
 
-    public static final String DEFAULT_LOCALE = "en";
+    public static final String DEFAULT_LOCALE = "so";
 
     public static final String SPECIALIZATION_EXISTS = "app.specialization.exists";
     public static final String SPECIALIZATION_ADDED = "app.specialization.added";
@@ -139,6 +139,19 @@ public class Constants {
     public static final String ORDERS_FETCHED_SUCCESS = "app.order.fetch.success";
     public static final String ORDER_NOT_FOUND = "app.order.not.found";
     public static final String ORDER_FETCHED_SUCCESS = "app.order.fetch.successfully";
+
+
+    public static final String PERMISSIONS_FETCHED = "app.permission.fetched.successfully";
+    public static final String PERMISSION_ADDED = "app.permission.added.successfully";
+    public static final String PERMISSION_UPDATED = "app.permission.updated.successfully";
+    public static final String PARENT_NOT_FOUND = "app.parent.permission.not.found";
+    public static final String PERMISSION_EXISTS = "app.permission.exists";
+    public static final String PERMISSION_NOT_FOUND = "app.permission.not.found";
+
+    public static final String PERMISSION_ROLE_ADDED = "app.permission.role.added";
+    public static final String PERMISSION_ROLE_UPDATED = "app.permission.role.update";
+    public static final String PERMISSION_ROLE_FETCHED = "app.permission.role.fetched";
+    public static final String PERMISSION_ROLE_NOT_FOUND = "app.permission.role.not.found";
     public static final String OTP_SEND_SUCCESSFULLY = "otp.send.successfully";
     public static final String CONTACT_NUMBER_NOT_EXIST = "contact.number.not.exist";
     public static final String CONTACT_NUMBER_EXIST = "contact.number.exist";

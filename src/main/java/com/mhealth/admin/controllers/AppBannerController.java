@@ -1,5 +1,6 @@
 package com.mhealth.admin.controllers;
 
+import com.mhealth.admin.config.Constants;
 import com.mhealth.admin.dto.request.AppBannerRequest;
 import com.mhealth.admin.dto.response.Response;
 import com.mhealth.admin.service.AppBannerService;
@@ -23,7 +24,7 @@ public class AppBannerController {
     @PostMapping
     @Operation(summary = "Create a new app banner")
     public ResponseEntity<Response> createAppBanner(@Valid @RequestBody AppBannerRequest request,
-                                                    @RequestHeader(name = "X-localization", required = false,defaultValue = "so") Locale locale) {
+                                                    @RequestHeader(name = "X-localization", required = false,defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.createAppBanner(request,locale);
     }
 
@@ -32,14 +33,14 @@ public class AppBannerController {
     public ResponseEntity<Response> updateAppBanner(
             @PathVariable Integer id,
             @Valid @RequestBody AppBannerRequest request,
-            @RequestHeader(name = "X-localization", required = false,defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false,defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.updateAppBanner(id, request,locale);
     }
 
     @GetMapping
     @Operation(summary = "Get all app banners")
     public ResponseEntity<Response> getAllAppBanners(
-            @RequestHeader(name = "X-localization", required = false,defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false,defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.getAllAppBanners(locale);
     }
 
@@ -47,7 +48,7 @@ public class AppBannerController {
     @Operation(summary = "Get app banner by ID")
     public ResponseEntity<Response> getAppBannerById(
             @PathVariable Integer id,
-            @RequestHeader(name = "X-localization", required = false,defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false,defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.getAppBannerById(id,locale);
     }
 
@@ -55,7 +56,7 @@ public class AppBannerController {
     @Operation(summary = "Delete app banner by ID")
     public ResponseEntity<Response> deleteAppBannerById(
             @PathVariable Integer id,
-            @RequestHeader(name = "X-localization", required = false,defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false,defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.deleteAppBannerById(id,locale);
     }
 
@@ -63,7 +64,7 @@ public class AppBannerController {
     @Operation(summary = "Search app banners by name")
     public ResponseEntity<Response> searchAppBanners(
             @RequestParam String iname,
-            @RequestHeader(name = "X-localization", required = false,defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false,defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.searchAppBanners(iname,locale);
     }
 }

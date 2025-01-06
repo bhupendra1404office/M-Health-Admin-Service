@@ -1,5 +1,6 @@
 package com.mhealth.admin.controllers;
 
+import com.mhealth.admin.config.Constants;
 import com.mhealth.admin.dto.request.MobileReleaseRequest;
 import com.mhealth.admin.dto.response.Response;
 import com.mhealth.admin.service.MobileReleaseService;
@@ -31,7 +32,7 @@ public class MobileReleaseController {
     @PostMapping
     public ResponseEntity<Response> createMobileRelease(
             @Valid @RequestBody MobileReleaseRequest request,
-            @RequestHeader(name = "X-localization", required = false, defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false, defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.createMobileRelease(request, locale);
     }
 
@@ -43,7 +44,7 @@ public class MobileReleaseController {
     public ResponseEntity<Response> updateMobileRelease(
             @PathVariable Integer id,
             @Valid @RequestBody MobileReleaseRequest request,
-            @RequestHeader(name = "X-localization", required = false, defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false, defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.updateMobileRelease(id, request, locale);
     }
 
@@ -52,7 +53,7 @@ public class MobileReleaseController {
     })
     @GetMapping
     public ResponseEntity<Response> getAllMobileReleases(
-            @RequestHeader(name = "X-localization", required = false, defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false, defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.getAllMobileReleases(locale);
     }
 
@@ -63,7 +64,7 @@ public class MobileReleaseController {
     @GetMapping("/{id}")
     public ResponseEntity<Response> getMobileReleaseById(
             @PathVariable Integer id,
-            @RequestHeader(name = "X-localization", required = false, defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false, defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.getMobileReleaseById(id, locale);
     }
 
@@ -74,7 +75,7 @@ public class MobileReleaseController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Response> deleteMobileReleaseById(
             @PathVariable Integer id,
-            @RequestHeader(name = "X-localization", required = false, defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false, defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.deleteMobileReleaseById(id, locale);
     }
 
@@ -85,7 +86,7 @@ public class MobileReleaseController {
     @GetMapping("/search")
     public ResponseEntity<Response> searchMobileRelease(
             @RequestParam String appVersion,
-            @RequestHeader(name = "X-localization", required = false, defaultValue = "so") Locale locale) {
+            @RequestHeader(name = "X-localization", required = false, defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
         return service.searchMobileReleaseByAppVersion(appVersion, locale);
     }
 }
