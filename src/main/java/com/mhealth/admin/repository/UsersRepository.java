@@ -6,8 +6,11 @@ import com.mhealth.admin.model.City;
 import com.mhealth.admin.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,8 +57,9 @@ public interface UsersRepository extends JpaRepository<Users,Integer> {
     Long countUsersByType(UserType userType);
 
     @Query("SELECT COUNT(DISTINCT u.doctorId) FROM DoctorAvailability u " +
-            " WHERE u.slotId.slotDay = ?1")
-    Long countAvailableDoctors(String day);
+            "WHERE u.slotId.slotDay = :day AND u.slotId.slotStartTime >= :time")
+    Long countAvailableDoctors(@Param("day") String day, @Param("time") LocalTime time);
+
 
     @Query("Select count(u) from Users u where u.type = ?1 AND u.status = ?2")
     Long countUsersByTypeAndStatus(UserType userType, StatusAI statusAI);

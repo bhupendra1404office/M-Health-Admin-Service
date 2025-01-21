@@ -18,7 +18,6 @@ public class DashboardController {
     @Autowired
     private DashboardService dashboardService;
 
-
     @GetMapping("/details")
     public ResponseEntity<?> getDashboardDetails(@RequestHeader(name = "X-localization",
             required = false,defaultValue = Constants.DEFAULT_LOCALE) Locale locale) {
